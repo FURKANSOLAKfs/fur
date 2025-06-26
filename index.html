@@ -12,113 +12,192 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Özel teklif alanı dikkat çekici renklerini koruyor */
-         .special-offer {
-            background: linear-gradient(45deg, #b91c1c, #7f1d1d);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+
+        /* ----- Değişkenler ----- */
+        .theme-light {
+            --bg-color: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-accent: #b91c1c;
+            --card-bg: #f9fafb;
+            --card-border: #e5e7eb;
+            --card-hover-border: #ef4444;
+            --icon-color: #dc2626;
+            --ai-bg: #111827;
+            --ai-text-primary: #ffffff;
+            --ai-text-accent: #ef4444;
+            --stat-border: #e5e7eb;
+            --footer-bg: #f3f4f6;
+            --cta-bg: #b91c1c;
+            --cta-hover-bg: #991b1b;
         }
+
+        .theme-dark {
+            --bg-color: transparent;
+            --text-primary: #ffffff;
+            --text-secondary: #d1d5db;
+            --text-accent: #ef4444; /* Kırmızı vurgu */
+            --card-bg: rgba(17, 24, 39, 0.7); /* Daha koyu kart arka planı */
+            --card-border: #1f2937; /* Daha koyu kart kenarlığı */
+            --card-hover-border: #ef4444; /* Vurgu rengiyle uyumlu hover */
+            --icon-color: #f87171; /* Vurgu rengiyle uyumlu ikon */
+            --ai-bg: rgba(0, 0, 0, 0.5); /* Daha koyu AI bölümü arka planı */
+            --ai-text-primary: #d1d5db;
+            --ai-text-accent: #ef4444; /* Vurgu rengiyle uyumlu */
+            --stat-border: #1f2937; /* Daha koyu ayraç */
+            --footer-bg: rgba(0, 0, 0, 0.7); /* Daha koyu alt bölüm */
+            --cta-bg: #dc2626; /* Kırmızı CTA butonu */
+            --cta-hover-bg: #b91c1c; /* Kırmızı CTA butonu hover */
+        }
+        
+        /* ----- Temel Stiller ----- */
+        #poster-container {
+            transition: background 0.5s ease-in-out, border-color 0.5s ease-in-out;
+        }
+
+        /* ----- Tema Stilleri ----- */
+        .theme-light {
+            background-color: var(--bg-color);
+        }
+        .dark-gradient-bg {
+            /* Koyu tema için daha koyu gradyan */
+            background: linear-gradient(135deg, #1f2937 0%, #000000 100%);
+        }
+        
+        /* ----- Component Stilleri ----- */
+        .special-offer {
+            background: linear-gradient(45deg, #b91c1c, #7f1d1d);
+        }
+        .feature-card:hover {
+             border-color: var(--card-hover-border);
+        }
+        #cta-button:hover {
+            background-color: var(--cta-hover-bg);
+        }
+
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 transition-colors duration-500">
     
-    <!-- Poster Ana Kapsayıcısı - Beyaz Arka Plan -->
-    <div class="bg-white text-gray-800 max-w-4xl w-full mx-auto rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+    <div id="poster-container" class="theme-light max-w-4xl w-full mx-auto rounded-2xl shadow-2xl overflow-hidden relative" style="color: var(--text-primary); border: 1px solid var(--card-border);">
+
+        <!-- Tema Değiştirme Düğmesi -->
+        <button id="theme-switcher" class="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-500 bg-opacity-20 text-white hover:bg-opacity-40 transition-all">
+            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        </button>
         
-        <!-- Üst Kısım (Metin Tabanlı Logo Alanı) -->
         <header class="p-8 md:p-12 text-center relative">
-            <div class="relative">
-                <!-- Basit Metin Logo: 'E' harfi kırmızı -->
-                <h1 class="text-4xl md:text-6xl font-black tracking-tight text-gray-900 uppercase">
-                    NET<span class="text-red-700">E</span>TRADE.COM
-                </h1>
-                <p class="text-sm md:text-base font-semibold text-gray-500 tracking-widest mt-2">GLOBAL TRADE CENTER</p>
-            </div>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight uppercase" style="color: var(--text-primary);">
+                NET<span style="color: var(--text-accent);">E</span>TRADE.COM
+            </h1>
+            <p id="slogan" class="text-sm md:text-base font-semibold tracking-widest mt-2" style="color: var(--text-secondary);">GLOBAL TRADE CENTER</p>
         </header>
 
-        <!-- Ana İçerik -->
-        <main class="p-8 md:p-10 bg-white">
-            
-            <!-- Giriş ve Açıklama -->
+        <main class="p-8 md:p-10 transition-colors duration-500">
             <section class="mb-10 text-center">
-                 <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                    Netetrade.com, uluslararası bir endüstriyel ticaret ve iş ağı platformudur. Küresel pazarda etkili olmak isteyen üretici ve ihracatçı firmalar için <span class="font-bold text-red-700">dijital dönüşüm çözümleri</span> sunar.
+                 <p class="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style="color: var(--text-secondary);">
+                    Netetrade.com, uluslararası bir endüstriyel ticaret ve iş ağı platformudur. Küresel pazarda etkili olmak isteyen üretici ve ihracatçı firmalar için <span class="font-bold" style="color: var(--text-accent);">dijital dönüşüm çözümleri</span> sunar.
                 </p>
             </section>
 
-            <!-- Temel Özellikler -->
             <section class="mb-10">
-                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900">Temel <span class="text-red-700">Özellikler</span></h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8" style="color: var(--text-primary);">Temel <span style="color: var(--text-accent);">Özellikler</span></h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Kartlar beyaz temaya uyarlandı -->
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 transition-all duration-300 hover:shadow-xl hover:border-red-500">
+                    <div class="feature-card p-6 rounded-xl transition-all duration-300" style="background-color: var(--card-bg); border: 1px solid var(--card-border);">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            <h3 class="font-semibold text-lg text-gray-800">Canlı Toplantılar</h3>
+                            <svg class="feature-icon w-8 h-8" style="color: var(--icon-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            <h3 class="font-semibold text-lg" style="color: var(--text-primary);">Canlı Toplantılar</h3>
                         </div>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 transition-all duration-300 hover:shadow-xl hover:border-red-500">
+                     <div class="feature-card p-6 rounded-xl transition-all duration-300" style="background-color: var(--card-bg); border: 1px solid var(--card-border);">
                         <div class="flex items-center space-x-4">
-                           <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h-1m-1 6v-1m-6-11H8m12 6h-1M4 12H3m10 6v1M6 6l1.5 1.5M18 18l-1.5-1.5M6 18l1.5-1.5M18 6l-1.5 1.5M12 2a10 10 0 100 20 10 10 0 000-20z"></path></svg>
-                            <h3 class="font-semibold text-lg text-gray-800">QR ile Kartvizit Paylaşımı</h3>
+                           <svg class="feature-icon w-8 h-8" style="color: var(--icon-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h-1m-1 6v-1m-6-11H8m12 6h-1M4 12H3m10 6v1M6 6l1.5 1.5M18 18l-1.5-1.5M6 18l1.5-1.5M18 6l-1.5 1.5M12 2a10 10 0 100 20 10 10 0 000-20z"></path></svg>
+                            <h3 class="font-semibold text-lg" style="color: var(--text-primary);">QR ile Kartvizit Paylaşımı</h3>
                         </div>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 transition-all duration-300 hover:shadow-xl hover:border-red-500">
+                    <div class="feature-card p-6 rounded-xl transition-all duration-300" style="background-color: var(--card-bg); border: 1px solid var(--card-border);">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                            <h3 class="font-semibold text-lg text-gray-800">Katalog ve Ürün Sunumları</h3>
+                            <svg class="feature-icon w-8 h-8" style="color: var(--icon-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                            <h3 class="font-semibold text-lg" style="color: var(--text-primary);">Katalog ve Ürün Sunumları</h3>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Yapay Zeka Gücü -->
-            <section class="mb-10 p-8 bg-gray-900 rounded-2xl">
-                <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-white">🎯 Yapay Zeka Destekli <span class="text-red-500">Dijital Güç</span></h2>
-                <ul class="space-y-4 text-lg text-gray-300">
-                    <li class="flex items-start"><span class="text-red-500 mr-3 text-2xl">🧠</span> 11 dilde SEO uyumlu içerik üretimi ve arama motorlarına indexleme.</li>
-                    <li class="flex items-start"><span class="text-red-500 mr-3 text-2xl">🌍</span> Google'da global 1. sayfa görünürlük hedefi.</li>
-                    <li class="flex items-start"><span class="text-red-500 mr-3 text-2xl">📱</span> Otomatik sosyal medya içerikleri ve paylaşımları.</li>
-                    <li class="flex items-start"><span class="text-red-500 mr-3 text-2xl">🔍</span> 2D & 3D ürün görüntüleme ile görsel etkiyi artırma.</li>
+            <section id="ai-section" class="mb-10 p-8 rounded-2xl transition-colors duration-500" style="background-color: var(--ai-bg);">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-6" style="color: var(--ai-text-primary);">🎯 Yapay Zeka Destekli <span style="color: var(--ai-text-accent);">Dijital Güç</span></h2>
+                <ul class="space-y-4 text-lg" style="color: var(--ai-text-primary);">
+                    <li class="flex items-start"><span class="mr-3 text-2xl" style="color: var(--ai-text-accent);">🧠</span> 11 dilde SEO uyumlu içerik üretimi ve arama motorlarına indexleme.</li>
+                    <li class="flex items-start"><span class="mr-3 text-2xl" style="color: var(--ai-text-accent);">🌍</span> Google ve diğer ana arama motorlarında global 1. sayfa görünürlük hedefi.</li>
+                    <li class="flex items-start"><span class="mr-3 text-2xl" style="color: var(--ai-text-accent);">📱</span> Yapay zeka ile otomatik sosyal medya içerikleri ve paylaşımları.</li>
+                    <li class="flex items-start"><span class="mr-3 text-2xl" style="color: var(--ai-text-accent);">🔍</span> 2D & 3D ürün görüntüleme teknolojileriyle görsel etkiyi artırma.</li>
                 </ul>
             </section>
             
-            <!-- Özel Kampanya -->
             <section class="my-12 p-8 rounded-2xl text-center text-white special-offer transform hover:scale-105 transition-transform duration-300">
                 <h3 class="text-xl font-bold uppercase">Türk Üreticilere Özel Kampanya</h3>
                 <p class="text-4xl md:text-5xl font-black mt-2">50" 4K QLED Google TV</p>
                 <p class="text-3xl font-bold text-yellow-300 mt-1">HEDİYE!</p>
             </section>
             
-             <!-- Neden Netetrade? -->
-            <section class="mb-10 text-center">
-                 <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900">Neden <span class="text-red-700">Netetrade?</span></h2>
+             <section class="mb-10 text-center">
+                 <h2 class="text-2xl md:text-3xl font-bold text-center mb-8" style="color: var(--text-primary);">Neden <span style="color: var(--text-accent);">Netetrade?</span></h2>
                  <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
                      <div class="text-center p-4">
-                         <p class="text-5xl font-extrabold text-red-700">175</p>
-                         <p class="text-lg text-gray-600 mt-1">Ülkede Görünürlük</p>
+                         <p class="text-5xl font-extrabold" style="color: var(--text-accent);">175</p>
+                         <p class="text-lg mt-1" style="color: var(--text-secondary);">Ülkede Görünürlük</p>
                      </div>
-                     <div class="text-center p-4 border-t-2 border-b-2 md:border-t-0 md:border-b-0 md:border-l-2 md:border-r-2 border-gray-200">
-                         <p class="text-5xl font-extrabold text-red-700">300.000+</p>
-                         <p class="text-lg text-gray-600 mt-1">Günlük Ziyaretçi</p>
+                     <div class="stats-divider text-center p-4 border-t-2 md:border-t-0 md:border-l-2 md:border-r-2" style="border-color: var(--stat-border);">
+                         <p class="text-5xl font-extrabold" style="color: var(--text-accent);">300.000+</p>
+                         <p class="text-lg mt-1" style="color: var(--text-secondary);">Günlük Ziyaretçi</p>
                      </div>
                       <div class="text-center p-4">
-                         <p class="text-5xl font-extrabold text-red-700">Tek Platform</p>
-                         <p class="text-lg text-gray-600 mt-1">Dijitalleşme & Global Erişim</p>
+                         <p class="text-5xl font-extrabold" style="color: var(--text-accent);">Tek Platform</p>
+                         <p class="text-lg mt-1" style="color: var(--text-secondary);">Dijitalleşme & Global Erişim</p>
                      </div>
                  </div>
             </section>
-            
         </main>
 
-        <!-- Alt Kısım / CTA -->
-        <footer class="p-8 text-center bg-gray-100">
-             <p class="text-xl md:text-2xl font-semibold text-gray-800">Siz de bu güçlü ağa katılarak sınırları aşın ve işinizi global seviyeye taşıyın!</p>
-             <a href="https://netetrade.com" target="_blank" class="mt-6 inline-block bg-red-700 hover:bg-red-800 text-white font-bold py-4 px-12 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg">
+        <footer id="footer" class="p-8 text-center transition-colors duration-500" style="background-color: var(--footer-bg);">
+             <p class="text-xl md:text-2xl font-semibold" style="color: var(--text-primary);">Siz de bu güçlü ağa katılarak sınırları aşın ve işinizi global seviyeye taşıyın!</p>
+             <a id="cta-button" href="https://netetrade.com" target="_blank" class="mt-6 inline-block text-white font-bold py-4 px-12 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg" style="background-color: var(--cta-bg);">
                 Hemen Başvurun
             </a>
         </footer>
-        
     </div>
 
+    <script>
+        const themeSwitcher = document.getElementById('theme-switcher');
+        const posterContainer = document.getElementById('poster-container');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body; // Sayfanın body elementini seçiyoruz
+
+        themeSwitcher.addEventListener('click', () => {
+            // Mevcut temayı kontrol etme
+            const isDark = posterContainer.classList.contains('theme-dark');
+
+            // Tema sınıflarını değiştirme
+            if (isDark) {
+                // Aydınlık temaya geçiş
+                posterContainer.classList.remove('theme-dark', 'dark-gradient-bg');
+                posterContainer.classList.add('theme-light');
+                body.classList.remove('bg-gray-900');
+                body.classList.add('bg-gray-100');
+            } else {
+                // Koyu temaya geçiş
+                posterContainer.classList.remove('theme-light');
+                posterContainer.classList.add('theme-dark', 'dark-gradient-bg');
+                body.classList.remove('bg-gray-100');
+                body.classList.add('bg-gray-900');
+            }
+
+            // Buton ikonlarını değiştirme
+            sunIcon.classList.toggle('hidden');
+            moonIcon.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
