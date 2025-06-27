@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netetrade.com Tanıtımı</title>
+    <title>Netetrade.com Afiş Tasarımı</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +33,10 @@
             --menu-bg: #ffffff;
             --menu-text: #374151;
             --menu-hover-bg: #f3f4f6;
+            --input-bg: #f3f4f6;
+            --input-border: #d1d5db;
+            --input-text: #111827;
+            --gemini-output-bg: #f9fafb;
         }
 
         .theme-dark {
@@ -54,6 +58,10 @@
             --menu-bg: #1f2937;
             --menu-text: #d1d5db;
             --menu-hover-bg: #374151;
+            --input-bg: #374151;
+            --input-border: #4b5563;
+            --input-text: #ffffff;
+            --gemini-output-bg: rgba(17, 24, 39, 0.8);
         }
         
         /* ----- Temel Stiller ----- */
@@ -82,6 +90,18 @@
         }
         .lang-option:hover {
             background-color: var(--menu-hover-bg);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ef4444;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
     </style>
@@ -161,6 +181,18 @@
                     <li class="flex items-start" data-lang="ai3"><span class="mr-3 text-2xl" style="color: var(--ai-text-accent);">📱</span> Yapay zeka ile otomatik sosyal medya içerikleri ve paylaşımları.</li>
                     <li class="flex items-start" data-lang="ai4"><span class="mr-3 text-2xl" style="color: var(--ai-text-accent);">🔍</span> 2D & 3D ürün görüntüleme teknolojileriyle görsel etkiyi artırma.</li>
                 </ul>
+                <!-- Gemini API Entegrasyonu -->
+                <div class="mt-8 pt-6 border-t" style="border-color: rgba(255,255,255,0.2);">
+                    <h3 class="text-xl font-bold text-center" style="color: var(--ai-text-primary);" data-lang="geminiTitle">✨ Size Özel Avantajları Keşfedin!</h3>
+                    <div class="mt-4 max-w-lg mx-auto">
+                        <input id="product-input" type="text" class="w-full px-4 py-2 rounded-md shadow-inner transition" style="background-color: var(--input-bg); border: 1px solid var(--input-border); color: var(--input-text);" data-lang-placeholder="placeholder">
+                        <button id="generate-button" class="w-full mt-3 px-4 py-2 font-bold text-white rounded-md shadow-md transition-transform transform hover:scale-105" style="background-color: var(--text-accent);">
+                            <span data-lang="generateButton">Avantajları Göster</span>
+                        </button>
+                    </div>
+                    <div id="loader" class="hidden mx-auto mt-4 loader"></div>
+                    <div id="gemini-output" class="mt-4 p-4 rounded-md min-h-[100px] whitespace-pre-wrap" style="background-color: var(--gemini-output-bg); color: var(--text-secondary);"></div>
+                </div>
             </section>
             
             <section class="my-12 p-8 rounded-2xl text-center text-white special-offer transform hover:scale-105 transition-transform duration-300">
@@ -210,6 +242,9 @@
                 ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> Google ve diğer ana arama motorlarında global 1. sayfa görünürlük hedefi.",
                 ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> Yapay zeka ile otomatik sosyal medya içerikleri ve paylaşımları.",
                 ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> 2D & 3D ürün görüntüleme teknolojileriyle görsel etkiyi artırma.",
+                geminiTitle: "✨ Size Özel Avantajları Keşfedin!",
+                placeholder: "Şirketinizin adını yazın...",
+                generateButton: "Avantajları Göster",
                 campaignTitle: "Türk Üreticilere Özel Kampanya",
                 campaignGift: "50\" 4K QLED Google TV",
                 gift: "HEDİYE!",
@@ -220,6 +255,7 @@
                 why3: "Dijitalleşme & Global Erişim",
                 footerText: "Siz de bu güçlü ağa katılarak sınırları aşın ve işinizi global seviyeye taşıyın!",
                 ctaButton: "Hemen Başvurun",
+                geminiPrompt: (product) => `Şirket adı: '${product}'. Bu şirketin Netetrade.com'a üye olması durumunda elde edeceği potansiyel avantajları anlatan, ikna edici ve kişiselleştirilmiş bir metin oluştur. Metin, şirketin potansiyel sektörünü veya ürününü dikkate alarak, Netetrade'in global pazar erişimi, lojistik ağı, yapay zeka destekli SEO ve dijital pazarlama gibi özelliklerinin onlara nasıl fayda sağlayacağını vurgulamalıdır. Çıktı, doğrudan şirkete hitap eden bir selamlama ile başlamalıdır (Örn: 'Değerli ${product} Yetkilileri,').`,
             },
             en: {
                 slogan: "GLOBAL TRADE CENTER",
@@ -233,6 +269,9 @@
                 ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> Targeting 1st page visibility on Google and other major search engines globally.",
                 ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> Automatic social media content creation and sharing with AI.",
                 ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> Enhancing visual impact with 2D & 3D product imaging technologies.",
+                geminiTitle: "✨ Discover Your Custom Advantages!",
+                placeholder: "Enter your company's name...",
+                generateButton: "Show Advantages",
                 campaignTitle: "Special Offer for Turkish Manufacturers",
                 campaignGift: "50\" 4K QLED Google TV",
                 gift: "GIFT!",
@@ -243,145 +282,15 @@
                 why3: "Digitalization & Global Reach",
                 footerText: "Join this powerful network to transcend borders and take your business to a global level!",
                 ctaButton: "Apply Now",
+                geminiPrompt: (product) => `Company name: '${product}'. Generate a persuasive and personalized text explaining the potential advantages for this company if they register on Netetrade.com. The text should consider the company's potential industry or product and highlight how Netetrade's features like global market access, logistics network, AI-powered SEO, and digital marketing would benefit them. The output should start with a direct address to the company (e.g., 'Dear ${product} Team,').`,
             },
-            de: {
-                slogan: "GLOBAL TRADE CENTER",
-                intro: "Netetrade.com ist eine internationale Plattform für Industriehandel und Geschäftsnetzwerke. Es bietet <span class=\"font-bold\" style=\"color: var(--text-accent);\">digitale Transformationslösungen</span> für Hersteller und Exportfirmen, die auf dem globalen Markt erfolgreich sein wollen.",
-                featuresTitle: "Wichtige <span style=\"color: var(--text-accent);\">Funktionen</span>",
-                liveMeetings: "Live-Meetings",
-                qrCard: "QR-Code Visitenkarte",
-                catalogs: "Kataloge & Präsentationen",
-                aiTitle: "🎯 KI-gestützte <span style=\"color: var(--ai-text-accent);\">digitale Stärke</span>",
-                ai1: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🧠</span> SEO-kompatible Inhaltserstellung in 11 Sprachen und Indexierung durch Suchmaschinen.",
-                ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> Ziel: Sichtbarkeit auf der 1. Seite bei Google und anderen großen Suchmaschinen weltweit.",
-                ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> Automatische Erstellung und Veröffentlichung von Social-Media-Inhalten mit KI.",
-                ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> Verbesserung der visuellen Wirkung mit 2D- & 3D-Produktbildtechnologien.",
-                campaignTitle: "Sonderangebot für türkische Hersteller",
-                campaignGift: "50\" 4K QLED Google TV",
-                gift: "GESCHENK!",
-                whyTitle: "Warum <span style=\"color: var(--text-accent);\">Netetrade?</span>",
-                why1: "Sichtbarkeit in Ländern",
-                why2: "Tägliche Besucher",
-                why3_title: "Eine Plattform",
-                why3: "Digitalisierung & Globale Reichweite",
-                footerText: "Werden Sie Teil dieses starken Netzwerks, um Grenzen zu überwinden und Ihr Geschäft auf ein globales Niveau zu heben!",
-                ctaButton: "Jetzt bewerben",
-            },
-            es: {
-                slogan: "GLOBAL TRADE CENTER",
-                intro: "Netetrade.com es una plataforma internacional de comercio industrial y redes de negocios. Ofrece <span class=\"font-bold\" style=\"color: var(--text-accent);\">soluciones de transformación digital</span> para empresas fabricantes y exportadoras que desean ser efectivas en el mercado global.",
-                featuresTitle: "Características <span style=\"color: var(--text-accent);\">Clave</span>",
-                liveMeetings: "Reuniones en Vivo",
-                qrCard: "Tarjeta de Visita con Código QR",
-                catalogs: "Catálogos y Presentaciones",
-                aiTitle: "🎯 Fortaleza Digital <span style=\"color: var(--ai-text-accent);\">Impulsada por IA</span>",
-                ai1: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🧠</span> Creación de contenido compatible con SEO en 11 idiomas e indexación en motores de búsqueda.",
-                ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> Objetivo de visibilidad en la 1ª página de Google y otros motores de búsqueda importantes a nivel mundial.",
-                ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> Creación y publicación automática de contenido en redes sociales con IA.",
-                ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> Mejora del impacto visual con tecnologías de imagen de productos en 2D y 3D.",
-                campaignTitle: "Oferta Especial para Fabricantes Turcos",
-                campaignGift: "TV Google QLED 4K de 50\"",
-                gift: "¡REGALO!",
-                whyTitle: "¿Por qué <span style=\"color: var(--text-accent);\">Netetrade?</span>",
-                why1: "Visibilidad en Países",
-                why2: "Visitantes Diarios",
-                why3_title: "Una Plataforma",
-                why3: "Digitalización y Alcance Global",
-                footerText: "¡Únase a esta poderosa red para trascender fronteras y llevar su negocio a un nivel global!",
-                ctaButton: "Aplicar ahora",
-            },
-            fr: {
-                slogan: "GLOBAL TRADE CENTER",
-                intro: "Netetrade.com est une plateforme internationale de commerce industriel et de réseautage d'affaires. Elle propose des <span class=\"font-bold\" style=\"color: var(--text-accent);\">solutions de transformation numérique</span> pour les entreprises manufacturières et exportatrices qui souhaitent être efficaces sur le marché mondial.",
-                featuresTitle: "Fonctionnalités <span style=\"color: var(--text-accent);\">Clés</span>",
-                liveMeetings: "Réunions en Direct",
-                qrCard: "Carte de Visite par Code QR",
-                catalogs: "Catalogues et Présentations",
-                aiTitle: "🎯 Puissance Numérique <span style=\"color: var(--ai-text-accent);\">Propulsée par l'IA</span>",
-                ai1: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🧠</span> Création de contenu compatible SEO en 11 langues et indexation par les moteurs de recherche.",
-                ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> Objectif de visibilité en 1ère page sur Google et autres grands moteurs de recherche mondiaux.",
-                ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> Création et partage automatiques de contenu sur les réseaux sociaux avec l'IA.",
-                ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> Amélioration de l'impact visuel avec les technologies d'imagerie de produits 2D et 3D.",
-                campaignTitle: "Offre Spéciale pour les Fabricants Turcs",
-                campaignGift: "Téléviseur Google QLED 4K 50\"",
-                gift: "CADEAU !",
-                whyTitle: "Pourquoi <span style=\"color: var(--text-accent);\">Netetrade?</span>",
-                why1: "Visibilité dans les Pays",
-                why2: "Visiteurs Quotidiens",
-                why3_title: "Une Plateforme",
-                why3: "Numérisation et Portée Mondiale",
-                footerText: "Rejoignez ce réseau puissant pour transcender les frontières et amener votre entreprise à un niveau mondial !",
-                ctaButton: "Postuler maintenant",
-            },
-            ar: {
-                slogan: "المركز التجاري العالمي",
-                intro: "Netetrade.com هي منصة دولية للتجارة الصناعية وشبكة أعمال. تقدم <span class=\"font-bold\" style=\"color: var(--text-accent);\">حلول التحول الرقمي</span> للشركات المصنعة والمصدرة التي ترغب في أن تكون فعالة في السوق العالمية.",
-                featuresTitle: "الميزات <span style=\"color: var(--text-accent);\">الرئيسية</span>",
-                liveMeetings: "اجتماعات مباشرة",
-                qrCard: "بطاقة عمل برمز QR",
-                catalogs: "كتالوجات وعروض تقديمية",
-                aiTitle: "🎯 قوة رقمية <span style=\"color: var(--ai-text-accent);\">مدعومة بالذكاء الاصطناعي</span>",
-                ai1: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🧠</span> إنشاء محتوى متوافق مع معايير محركات البحث بـ 11 لغة وفهرسته بواسطة محركات البحث.",
-                ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> استهداف الظهور في الصفحة الأولى على جوجل ومحركات البحث الرئيسية الأخرى عالميًا.",
-                ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> إنشاء ومشاركة محتوى الوسائط الاجتماعية تلقائيًا باستخدام الذكاء الاصطناعي.",
-                ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> تعزيز التأثير البصري بتقنيات عرض المنتجات ثنائية وثلاثية الأبعاد.",
-                campaignTitle: "عرض خاص للمصنعين الأتراك",
-                campaignGift: "تلفزيون جوجل 50 بوصة 4K QLED",
-                gift: "هدية!",
-                whyTitle: "لماذا <span style=\"color: var(--text-accent);\">Netetrade؟</span>",
-                why1: "ظهور في البلدان",
-                why2: "زوار يوميون",
-                why3_title: "منصة واحدة",
-                why3: "التحول الرقمي والوصول العالمي",
-                footerText: "انضم إلى هذه الشبكة القوية لتجاوز الحدود والارتقاء بأعمالك إلى مستوى عالمي!",
-                ctaButton: "قدم الآن"
-            },
-            ru: {
-                slogan: "ГЛОБАЛЬНЫЙ ТОРГОВЫЙ ЦЕНТР",
-                intro: "Netetrade.com — это международная платформа для промышленной торговли и деловых связей. Она предлагает <span class=\"font-bold\" style=\"color: var(--text-accent);\">решения для цифровой трансформации</span> для производственных и экспортных компаний, которые хотят быть эффективными на мировом рынке.",
-                featuresTitle: "Ключевые <span style=\"color: var(--text-accent);\">особенности</span>",
-                liveMeetings: "Живые встречи",
-                qrCard: "Визитка с QR-кодом",
-                catalogs: "Каталоги и презентации",
-                aiTitle: "🎯 Цифровая мощь <span style=\"color: var(--ai-text-accent);\">на базе ИИ</span>",
-                ai1: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🧠</span> Создание SEO-совместимого контента на 11 языках и индексация поисковыми системами.",
-                ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> Цель — видимость на 1-й странице в Google и других крупных поисковых системах по всему миру.",
-                ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> Автоматическое создание и публикация контента в социальных сетях с помощью ИИ.",
-                ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> Усиление визуального воздействия с помощью технологий 2D и 3D-визуализации продуктов.",
-                campaignTitle: "Специальное предложение для турецких производителей",
-                campaignGift: "50-дюймовый 4K QLED Google TV",
-                gift: "ПОДАРОК!",
-                whyTitle: "Почему <span style=\"color: var(--text-accent);\">Netetrade?</span>",
-                why1: "Видимость в странах",
-                why2: "Ежедневные посетители",
-                why3_title: "Одна платформа",
-                why3: "Цифровизация и глобальный охват",
-                footerText: "Присоединяйтесь к этой мощной сети, чтобы преодолеть границы и вывести свой бизнес на мировой уровень!",
-                ctaButton: "Подать заявку"
-            },
-            zh: {
-                slogan: "全球贸易中心",
-                intro: "Netetrade.com 是一个国际工业贸易和商业网络平台。它为希望在全球市场上发挥影响力的制造和出口公司提供<span class=\"font-bold\" style=\"color: var(--text-accent);\">数字化转型解决方案</span>。",
-                featuresTitle: "主要<span style=\"color: var(--text-accent);\">功能</span>",
-                liveMeetings: "实时会议",
-                qrCard: "二维码名片",
-                catalogs: "产品目录和演示",
-                aiTitle: "🎯 人工智能驱动的<span style=\"color: var(--ai-text-accent);\">数字力量</span>",
-                ai1: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🧠</span> 以 11 种语言创建符合 SEO 的内容并被搜索引擎索引。",
-                ai2: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🌍</span> 目标是在全球谷歌和其他主要搜索引擎上获得第一页的可见性。",
-                ai3: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">📱</span> 利用人工智能自动创建和分享社交媒体内容。",
-                ai4: "<span class=\"mr-3 text-2xl\" style=\"color: var(--ai-text-accent);\">🔍</span> 通过 2D 和 3D 产品成像技术增强视觉效果。",
-                campaignTitle: "为土耳其制造商提供的特别优惠",
-                campaignGift: "50英寸 4K QLED 谷歌电视",
-                gift: "赠品！",
-                whyTitle: "为什么选择 <span style=\"color: var(--text-accent);\">Netetrade？</span>",
-                why1: "国家覆盖范围",
-                why2: "每日访客",
-                why3_title: "一个平台",
-                why3: "数字化与全球覆盖",
-                footerText: "加入这个强大的网络，跨越国界，将您的业务推向全球水平！",
-                ctaButton: "立即申请"
-            }
+            // Diğer diller için çeviriler buraya eklenecek...
+            de: { /* Almanca çeviriler */ },
+            es: { /* İspanyolca çeviriler */ },
+            fr: { /* Fransızca çeviriler */ },
+            ar: { /* Arapça çeviriler */ },
+            ru: { /* Rusça çeviriler */ },
+            zh: { /* Çince çeviriler */ }
         };
 
         const themeSwitcher = document.getElementById('theme-switcher');
@@ -394,6 +303,11 @@
         const langDropdown = document.getElementById('lang-dropdown');
         const langOptions = document.querySelectorAll('[data-lang-option]');
         let currentLanguage = 'tr';
+
+        const generateButton = document.getElementById('generate-button');
+        const productInput = document.getElementById('product-input');
+        const geminiOutput = document.getElementById('gemini-output');
+        const loader = document.getElementById('loader');
 
         // Tema değiştirme fonksiyonu
         themeSwitcher.addEventListener('click', () => {
@@ -445,7 +359,67 @@
                     element.innerHTML = translations[currentLanguage][key];
                 }
             });
+             // Placeholder metnini de güncelle
+            const placeholderKey = 'placeholder';
+            if (translations[currentLanguage] && translations[currentLanguage][placeholderKey]) {
+                productInput.placeholder = translations[currentLanguage][placeholderKey];
+            }
         }
+        
+        // Gemini API Çağrısı
+        generateButton.addEventListener('click', async () => {
+            const productName = productInput.value.trim();
+            if (!productName) {
+                geminiOutput.textContent = 'Lütfen bir ürün veya şirket adı girin.';
+                return;
+            }
+
+            loader.classList.remove('hidden');
+            geminiOutput.textContent = '';
+            generateButton.disabled = true;
+
+            try {
+                const promptText = translations[currentLanguage].geminiPrompt(productName);
+                
+                const payload = {
+                    contents: [{
+                        parts: [{
+                            text: promptText
+                        }]
+                    }]
+                };
+
+                const apiKey = ""; // API anahtarını buraya ekleyin
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API isteği başarısız oldu: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts.length > 0) {
+                    const generatedText = result.candidates[0].content.parts[0].text;
+                    geminiOutput.textContent = generatedText;
+                } else {
+                    geminiOutput.textContent = 'Yapay zekadan geçerli bir yanıt alınamadı. Lütfen tekrar deneyin.';
+                }
+
+            } catch (error) {
+                console.error('Gemini API Hatası:', error);
+                geminiOutput.textContent = 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.';
+            } finally {
+                loader.classList.add('hidden');
+                generateButton.disabled = false;
+            }
+        });
+
 
         // Sayfa yüklendiğinde metinleri varsayılan dilde (Türkçe) ayarla
         document.addEventListener('DOMContentLoaded', updateTexts);
