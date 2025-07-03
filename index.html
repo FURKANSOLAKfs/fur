@@ -1,1 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecrin Nisa'm, Lütfen Beni Affet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Özel fontları tanımlıyoruz */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Animasyon için */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-200 antialiased">
 
+    <!-- Ana Başlık ve Giriş Bölümü -->
+    <header class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gradient-to-b from-slate-900 to-rose-900/50">
+        <div class="max-w-3xl">
+            <h1 class="text-5xl md:text-8xl text-white font-bold drop-shadow-lg">Ecrin Nisa Tekin</h1>
+            <p class="mt-6 text-xl md:text-2xl text-rose-200 drop-shadow-md">
+                Hayatımın anlamı, lütfen bu satırlarıma bir şans ver ve beni affet.
+            </p>
+            <p class="mt-12 text-sm text-rose-300 animate-pulse">Sayfayı aşağı kaydır...</p>
+        </div>
+    </header>
+
+    <main class="w-full">
+        <!-- Özür Mektubu Bölümü -->
+        <section id="letter" class="fade-in-section max-w-3xl mx-auto py-20 px-6">
+            <h2 class="text-4xl text-center text-rose-300 mb-8">Sana Kalbimden Gelenler...</h2>
+            <div class="bg-slate-800/50 p-8 rounded-2xl shadow-2xl text-lg leading-relaxed text-gray-300">
+                <p class="mb-4">Canım Ecrin Nisa'm,</p>
+                <p class="mb-4">
+                    Biliyorum, son zamanlarda seni çok üzdüm ve kırdım. Bunun için ne kadar üzgün olduğumu kelimelerle anlatmam çok zor. Yaptığım hatanın farkındayım ve sensiz geçen her an, bu hatanın ağırlığını daha da derinden hissediyorum. Senin olmadığın bir dünya benim için renksiz, anlamsız ve boş.
+                </p>
+                <p class="mb-4">
+                    <!-- BU ALANI KENDİ CÜMLELERİNLE DOLDURABİLİRSİN -->
+                    Sen benim sadece kız arkadaşım değil, en yakın dostum, sırdaşım, neşe kaynağımsın. Gülüşünle aydınlanan günlerimi, sesinle huzur bulan kalbimi geri istiyorum. Lütfen bana bu hatamı telafi etmem için bir fırsat daha ver.
+                </p>
+                <p>
+                    Seni her şeyden çok seven,
+                    <br>
+                    <span class="font-semibold text-rose-200">Furkan Solak</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Anılar Galerisi Bölümü -->
+        <section id="memories" class="fade-in-section py-20 bg-slate-900/70">
+            <div class="max-w-5xl mx-auto px-6">
+                <h2 class="text-4xl text-center text-rose-300 mb-12">Unutamadığımız Güzel Anılarımız</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Resimleri değiştirmek için src="..." kısmındaki linki değiştirmen yeterli -->
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="https://placehold.co/600x800/334155/fecdd3?text=İlk+Buluşmamız" alt="Romantik bir anı" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 flex items-end p-4">
+                            <h3 class="text-white text-xl font-semibold">İlk Buluşmamız</h3>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="https://placehold.co/600x800/334155/fecdd3?text=En+Sevdiğimiz+Şarkı" alt="Romantik bir anı" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 flex items-end p-4">
+                            <h3 class="text-white text-xl font-semibold">En Sevdiğimiz Şarkı</h3>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="https://placehold.co/600x800/334155/fecdd3?text=Unutulmaz+Tatil" alt="Romantik bir anı" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 flex items-end p-4">
+                            <h3 class="text-white text-xl font-semibold">Unutulmaz Tatilimiz</h3>
+                        </div>
+                    </div>
+                     <!-- Daha fazla anı eklemek için bu blokları kopyalayabilirsin -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Söz Veriyorum & Af Butonu Bölümü -->
+        <section id="promise" class="fade-in-section max-w-3xl mx-auto py-20 px-6 text-center">
+            <h2 class="text-4xl text-center text-rose-300 mb-8">Sana Söz Veriyorum...</h2>
+            <ul class="text-lg text-gray-300 space-y-3 list-inside list-disc mb-12 text-left max-w-md mx-auto">
+                <li>Seni her zaman dinleyeceğim ve anlamaya çalışacağım.</li>
+                <li>Bir daha asla kalbini kırmamak için elimden gelen her şeyi yapacağım.</li>
+                <li>Sana olan sevgimi her fırsatta göstereceğim.</li>
+                <li>Hayatının her anında en büyük destekçin olacağım.</li>
+            </ul>
+
+            <div id="action-container">
+                <h3 class="text-2xl text-white mb-6">Bana bir şans daha verir misin?</h3>
+                <button id="forgive-button" class="bg-rose-500 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-rose-600 hover:scale-105 transform transition-all duration-300 ease-in-out">
+                    Seni Affediyorum Furkan
+                </button>
+            </div>
+            
+            <!-- Af Mesajı -->
+            <div id="confirmation-message" class="hidden mt-8">
+                 <h2 class="text-4xl text-green-400 mb-4 animate-pulse">Dünyalar Benim Oldu!</h2>
+                 <p class="text-xl text-gray-200">Seni çok seviyorum ve asla kaybetmek istemiyorum. ❤️</p>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="text-center py-8 bg-slate-900 border-t border-slate-800">
+        <p class="text-gray-500">Sonsuza dek senin olan, <span class="font-semibold">Furkan</span>.</p>
+    </footer>
+
+    <script>
+        // Sayfa kaydırıldıkça animasyonları tetikleyen kod
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Buton tıklama olayı
+        const forgiveButton = document.getElementById('forgive-button');
+        const actionContainer = document.getElementById('action-container');
+        const confirmationMessage = document.getElementById('confirmation-message');
+
+        forgiveButton.addEventListener('click', () => {
+            // Buton ve yazıyı gizle
+            actionContainer.style.transition = 'opacity 0.5s';
+            actionContainer.style.opacity = '0';
+            setTimeout(() => {
+                actionContainer.classList.add('hidden');
+                 // Onay mesajını göster
+                confirmationMessage.classList.remove('hidden');
+                confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
