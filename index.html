@@ -7,16 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sacramento&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Özel fontları tanımlıyoruz */
         body {
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Yatay kaydırmayı engelle */
         }
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
-        /* Animasyon için */
+        .font-handwriting {
+            font-family: 'Sacramento', cursive;
+        }
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
@@ -26,38 +28,66 @@
             opacity: 1;
             transform: translateY(0);
         }
+        /* Parıltı efekti */
+        .text-glow {
+            text-shadow: 0 0 8px rgba(251, 113, 133, 0.5), 0 0 20px rgba(251, 113, 133, 0.3);
+        }
+        .button-glow {
+            box-shadow: 0 0 15px rgba(251, 113, 133, 0.6), 0 0 25px rgba(251, 113, 133, 0.4);
+        }
+        /* Arka plan canvas */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        header {
+            position: relative;
+            z-index: 1;
+        }
+        /* Kaçan buton için */
+        #promise {
+            position: relative; /* Butonun kaçacağı alan */
+        }
+        #no-button {
+            /* Başlangıç pozisyonu flexbox tarafından ayarlanacak */
+            transition: all 0.4s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-slate-900 text-gray-200 antialiased">
 
     <!-- Ana Başlık ve Giriş Bölümü -->
     <header class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gradient-to-b from-slate-900 to-rose-900/50">
-        <div class="max-w-3xl">
-            <h1 class="text-5xl md:text-8xl text-white font-bold drop-shadow-lg">Ecrin Nisa Tekin</h1>
-            <p class="mt-6 text-xl md:text-2xl text-rose-200 drop-shadow-md">
+        <canvas id="particle-canvas"></canvas>
+        <div class="max-w-3xl z-10">
+            <h1 class="text-6xl md:text-8xl text-white font-bold drop-shadow-lg text-glow font-handwriting">Ecrin Nisa Tekin</h1>
+            <p class="mt-6 text-xl md:text-2xl text-rose-100 drop-shadow-md">
                 Hayatımın anlamı, lütfen bu satırlarıma bir şans ver ve beni affet.
             </p>
-            <p class="mt-12 text-sm text-rose-300 animate-pulse">Sayfayı aşağı kaydır...</p>
+            <p class="mt-12 text-sm text-rose-200 animate-pulse">Sayfayı aşağı kaydır...</p>
         </div>
     </header>
 
     <main class="w-full">
         <!-- Özür Mektubu Bölümü -->
         <section id="letter" class="fade-in-section max-w-3xl mx-auto py-20 px-6">
-            <h2 class="text-4xl text-center text-rose-300 mb-8">Sana Kalbimden Gelenler...</h2>
-            <div class="bg-slate-800/50 p-8 rounded-2xl shadow-2xl text-lg leading-relaxed text-gray-300">
+            <h2 class="text-4xl text-center text-rose-300 mb-8 text-glow">Sana Kalbimden Gelenler...</h2>
+            <div class="bg-slate-800/50 p-8 rounded-2xl shadow-2xl text-lg leading-relaxed text-gray-300 backdrop-blur-sm border border-slate-700">
                 <p class="mb-4">Canım Ecrin Nisa'm,</p>
                 <p class="mb-4">
                     Biliyorum, son zamanlarda seni çok üzdüm ve kırdım. Bunun için ne kadar üzgün olduğumu kelimelerle anlatmam çok zor. Yaptığım hatanın farkındayım ve sensiz geçen her an, bu hatanın ağırlığını daha da derinden hissediyorum. Senin olmadığın bir dünya benim için renksiz, anlamsız ve boş.
                 </p>
                 <p class="mb-4">
-                    <!-- BU ALANI KENDİ CÜMLELERİNLE DOLDURABİLİRSİN -->
                     Sen benim sadece kız arkadaşım değil, en yakın dostum, sırdaşım, neşe kaynağımsın. Gülüşünle aydınlanan günlerimi, sesinle huzur bulan kalbimi geri istiyorum. Lütfen bana bu hatamı telafi etmem için bir fırsat daha ver.
                 </p>
                 <p>
                     Seni her şeyden çok seven,
                     <br>
-                    <span class="font-semibold text-rose-200">Furkan Solak</span>
+                    <span class="font-semibold text-rose-200 font-handwriting text-3xl mt-2 inline-block">Furkan Solak</span>
                 </p>
             </div>
         </section>
@@ -65,35 +95,33 @@
         <!-- Anılar Galerisi Bölümü -->
         <section id="memories" class="fade-in-section py-20 bg-slate-900/70">
             <div class="max-w-5xl mx-auto px-6">
-                <h2 class="text-4xl text-center text-rose-300 mb-12">Unutamadığımız Güzel Anılarımız</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Resimleri değiştirmek için src="..." kısmındaki linki değiştirmen yeterli -->
-                    <div class="group relative overflow-hidden rounded-xl shadow-lg">
-                        <img src="https://placehold.co/600x800/334155/fecdd3?text=İlk+Buluşmamız" alt="Romantik bir anı" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/40 flex items-end p-4">
-                            <h3 class="text-white text-xl font-semibold">İlk Buluşmamız</h3>
+                <h2 class="text-4xl text-center text-rose-300 mb-12 text-glow">Unutamadığımız Anılarımız</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x800/334155/fecdd3?text=İlk+Buluşmamız" alt="İlk Buluşma" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                            <h3 class="text-white text-2xl font-semibold">İlk Buluşmamız</h3>
                         </div>
                     </div>
-                    <div class="group relative overflow-hidden rounded-xl shadow-lg">
-                        <img src="https://placehold.co/600x800/334155/fecdd3?text=İlk+Sarılmamız" alt="Romantik bir anı" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/40 flex items-end p-4">
-                            <h3 class="text-white text-xl font-semibold">İlk Sarılmamız</h3>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x800/334155/fecdd3?text=İlk+Sarılmamız" alt="İlk Sarılma" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                            <h3 class="text-white text-2xl font-semibold">İlk Sarılmamız</h3>
                         </div>
                     </div>
-                    <div class="group relative overflow-hidden rounded-xl shadow-lg">
-                        <img src="https://placehold.co/600x800/334155/fecdd3?text=İlk+Öpüşmemiz" alt="Romantik bir anı" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/40 flex items-end p-4">
-                            <h3 class="text-white text-xl font-semibold">İlk Öpüşmemiz</h3>
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x800/334155/fecdd3?text=İlk+Öpüşmemiz" alt="İlk Öpüşme" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                            <h3 class="text-white text-2xl font-semibold">İlk Öpüşmemiz</h3>
                         </div>
                     </div>
-                     <!-- Daha fazla anı eklemek için bu blokları kopyalayabilirsin -->
                 </div>
             </div>
         </section>
 
         <!-- Söz Veriyorum & Af Butonu Bölümü -->
         <section id="promise" class="fade-in-section max-w-3xl mx-auto py-20 px-6 text-center">
-            <h2 class="text-4xl text-center text-rose-300 mb-8">Sana Söz Veriyorum...</h2>
+            <h2 class="text-4xl text-center text-rose-300 mb-8 text-glow">Sana Söz Veriyorum...</h2>
             <ul class="text-lg text-gray-300 space-y-3 list-inside list-disc mb-12 text-left max-w-md mx-auto">
                 <li>Seni her zaman dinleyeceğim ve anlamaya çalışacağım.</li>
                 <li>Bir daha asla kalbini kırmamak için elimden gelen her şeyi yapacağım.</li>
@@ -102,27 +130,88 @@
             </ul>
 
             <div id="action-container">
-                <h3 class="text-2xl text-white mb-6">Bana bir şans daha verir misin?</h3>
-                <button id="forgive-button" class="bg-rose-500 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-rose-600 hover:scale-105 transform transition-all duration-300 ease-in-out">
-                    Seni Affediyorum Furkan
-                </button>
+                <h3 class="text-2xl text-white mb-8">Bana bir şans daha verir misin?</h3>
+                <div class="flex justify-center items-center gap-4 min-h-[80px]">
+                    <button id="forgive-button" class="bg-rose-500 text-white font-bold py-4 px-10 rounded-full hover:bg-rose-600 hover:scale-105 transform transition-all duration-300 ease-in-out button-glow">
+                        Seni Affediyorum Furkan
+                    </button>
+                    <button id="no-button" class="bg-slate-600 text-white font-bold py-4 px-10 rounded-full hover:bg-slate-700 transform">
+                        Hayır
+                    </button>
+                </div>
             </div>
             
-            <!-- Af Mesajı -->
             <div id="confirmation-message" class="hidden mt-8">
-                 <h2 class="text-4xl text-green-400 mb-4 animate-pulse">Dünyalar Benim Oldu!</h2>
+                 <h2 class="text-5xl text-green-400 mb-4 animate-pulse font-handwriting">Dünyalar Benim Oldu!</h2>
                  <p class="text-xl text-gray-200">Seni çok seviyorum ve asla kaybetmek istemiyorum. ❤️</p>
             </div>
-
         </section>
     </main>
 
     <footer class="text-center py-8 bg-slate-900 border-t border-slate-800">
-        <p class="text-gray-500">Sonsuza dek senin olan, <span class="font-semibold">Furkan</span>.</p>
+        <p class="text-gray-500">Sonsuza dek senin olan, <span class="font-semibold text-rose-400">Furkan</span>.</p>
     </footer>
 
     <script>
-        // Sayfa kaydırıldıkça animasyonları tetikleyen kod
+        // Arka plan kalp animasyonu
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const particleCount = 100;
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedY: Math.random() * 1 + 0.5,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
+        function drawHeart(x, y, size, opacity) {
+            ctx.fillStyle = `rgba(251, 113, 133, ${opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(x, y + size / 4);
+            ctx.quadraticCurveTo(x, y, x + size / 4, y);
+            ctx.quadraticCurveTo(x + size / 2, y, x + size / 2, y + size / 4);
+            ctx.quadraticCurveTo(x + size / 2, y, x + (size * 3) / 4, y);
+            ctx.quadraticCurveTo(x + size, y, x + size, y + size / 4);
+            ctx.quadraticCurveTo(x + size, y + size / 2, x + (size * 3) / 4, y + (size * 3) / 4);
+            ctx.lineTo(x + size / 2, y + size);
+            ctx.lineTo(x + size / 4, y + (size * 3) / 4);
+            ctx.quadraticCurveTo(x, y + size / 2, x, y + size / 4);
+            ctx.fill();
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.y -= p.speedY;
+                if (p.y < -20) {
+                    p.y = canvas.height + 20;
+                    p.x = Math.random() * canvas.width;
+                }
+                drawHeart(p.x, p.y, p.size * 10, p.opacity);
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createParticles();
+        });
+
+        createParticles();
+        animateParticles();
+
+        // Sayfa kaydırma animasyonu
         const sections = document.querySelectorAll('.fade-in-section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -130,31 +219,46 @@
                     entry.target.classList.add('is-visible');
                 }
             });
-        }, {
-            threshold: 0.1
-        });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // Buton tıklama olayı
+        // Buton etkileşimleri
         const forgiveButton = document.getElementById('forgive-button');
+        const noButton = document.getElementById('no-button');
         const actionContainer = document.getElementById('action-container');
         const confirmationMessage = document.getElementById('confirmation-message');
+        const promiseSection = document.getElementById('promise');
 
         forgiveButton.addEventListener('click', () => {
-            // Buton ve yazıyı gizle
             actionContainer.style.transition = 'opacity 0.5s';
             actionContainer.style.opacity = '0';
             setTimeout(() => {
                 actionContainer.classList.add('hidden');
-                 // Onay mesajını göster
                 confirmationMessage.classList.remove('hidden');
                 confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 500);
         });
-    </script>
 
+        // "Hayır" butonunun daha güzel kaçmasını sağlayan kod
+        noButton.addEventListener('mouseover', () => {
+            const sectionRect = promiseSection.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            
+            // Butonun kaçacağı alanın sınırları
+            const maxX = promiseSection.clientWidth - buttonRect.width;
+            const maxY = promiseSection.clientHeight - buttonRect.height;
+
+            // Rastgele pozisyon ve dönüş hesapla
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            const randomRotate = (Math.random() - 0.5) * 50; // Hafif bir dönüş efekti
+
+            // Butonun pozisyonunu 'absolute' yaparak serbestçe hareket etmesini sağla
+            noButton.style.position = 'absolute';
+            noButton.style.top = `${randomY}px`;
+            noButton.style.left = `${randomX}px`;
+            noButton.style.transform = `rotate(${randomRotate}deg)`;
+        });
+    </script>
 </body>
 </html>
