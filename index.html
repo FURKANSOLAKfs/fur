@@ -13,6 +13,9 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden; /* Yatay kaydırmayı engelle */
         }
+        html {
+            scroll-behavior: smooth;
+        }
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
@@ -51,6 +54,7 @@
         /* Kaçan buton için */
         #promise {
             position: relative; /* Butonun kaçacağı alan */
+            overflow: hidden; /* Butonun dışarı taşmasını engelle */
         }
         #no-button {
             /* Başlangıç pozisyonu flexbox tarafından ayarlanacak */
@@ -144,6 +148,7 @@
             <div id="confirmation-message" class="hidden mt-8">
                  <h2 class="text-5xl text-green-400 mb-4 animate-pulse font-handwriting">Dünyalar Benim Oldu!</h2>
                  <p class="text-xl text-gray-200">Seni çok seviyorum ve asla kaybetmek istemiyorum. ❤️</p>
+                 <div id="love-languages" class="mt-12 text-center"></div>
             </div>
         </section>
     </main>
@@ -236,29 +241,78 @@
                 actionContainer.classList.add('hidden');
                 confirmationMessage.classList.remove('hidden');
                 confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                setTimeout(showLoveLanguages, 1000); // Dillerin başlaması için kısa bir bekleme
             }, 500);
         });
-
-        // "Hayır" butonunun daha güzel kaçmasını sağlayan kod
-        noButton.addEventListener('mouseover', () => {
+        
+        // Kaçan buton fonksiyonu
+        const makeButtonRun = (event) => {
+            // Dokunmatik cihazlarda varsayılan davranışı engelle (kaydırma gibi)
+            if (event.type === 'touchstart') {
+                event.preventDefault();
+            }
+            
             const sectionRect = promiseSection.getBoundingClientRect();
             const buttonRect = noButton.getBoundingClientRect();
             
-            // Butonun kaçacağı alanın sınırları
             const maxX = promiseSection.clientWidth - buttonRect.width;
             const maxY = promiseSection.clientHeight - buttonRect.height;
 
-            // Rastgele pozisyon ve dönüş hesapla
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY;
-            const randomRotate = (Math.random() - 0.5) * 50; // Hafif bir dönüş efekti
+            const randomRotate = (Math.random() - 0.5) * 50; 
 
-            // Butonun pozisyonunu 'absolute' yaparak serbestçe hareket etmesini sağla
             noButton.style.position = 'absolute';
             noButton.style.top = `${randomY}px`;
             noButton.style.left = `${randomX}px`;
             noButton.style.transform = `rotate(${randomRotate}deg)`;
-        });
+        };
+        
+        // Hem fare hem de dokunma için olay dinleyicileri
+        noButton.addEventListener('mouseover', makeButtonRun);
+        noButton.addEventListener('touchstart', makeButtonRun);
+        
+        // Dillerle "Seni Seviyorum" yazısını gösteren fonksiyon
+        function showLoveLanguages() {
+            const languages = [
+                "Seni Seviyorum (Türkçe)", "I Love You (English)", "Te Amo (Español)", "Je t'aime (Français)",
+                "Ich liebe dich (Deutsch)", "Ti Amo (Italiano)", "Eu te amo (Português)", "Я тебя люблю (Русский)",
+                "愛してる (日本語)", "أحبك (عربى)", "Ik hou van je (Nederlands)", "Jag älskar dig (Svenska)",
+                "Σ'αγαπώ (Ελληνικά)", "사랑해 (한국어)", "Nakupenda (Swahili)", "...",
+                "Bunu sana dünyadaki bütün dillerde söyleyebilirim...",
+                "Çünkü sen benim her şeyimsin."
+            ];
+
+            const container = document.getElementById('love-languages');
+            let index = 0;
+
+            const intervalId = setInterval(() => {
+                if (index >= languages.length) {
+                    clearInterval(intervalId);
+                    return;
+                }
+
+                const p = document.createElement('p');
+                p.textContent = languages[index];
+                
+                if (index >= languages.length - 2) {
+                     p.className = 'text-2xl font-semibold text-rose-300 opacity-0 transition-all duration-500 transform translate-y-3 p-2';
+                } else {
+                     p.className = 'text-xl text-gray-300 opacity-0 transition-all duration-500 transform translate-y-3';
+                }
+                
+                container.appendChild(p);
+
+                setTimeout(() => {
+                    p.style.opacity = '1';
+                    p.style.transform = 'translateY(0)';
+                    p.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }, 50);
+
+                index++;
+            }, 500); // Her yarım saniyede bir yeni dil ekle
+        }
     </script>
 </body>
 </html>
